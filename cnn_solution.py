@@ -1,3 +1,8 @@
+"""
+import image from directory
+and use previously generated model for clarification
+"""
+
 import keras
 import numpy as np
 from keras.preprocessing import image

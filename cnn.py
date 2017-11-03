@@ -56,7 +56,7 @@ test_datagen = ImageDataGenerator(rescale = 1./255)
 training_set = train_datagen.flow_from_directory('dataset/training_set',
                                                  target_size = (64, 64),
                                                  batch_size = 8,
-                                                 class_mode = 'binary') # save_to_dir="dataset/augemented"
+                                                 class_mode = 'binary') # save_to_dir="dataset/augemented" - this could show generated files
 
 test_set = test_datagen.flow_from_directory('dataset/test_set',
                                             target_size = (64, 64),
@@ -69,15 +69,16 @@ classifier.fit_generator(training_set,
                          validation_data = test_set,
                          validation_steps = 100)
 
-classifier.save("model.h5")   # sve model for future purposes
+classifier.save("model.h5")   # save model for future purposes
 
 import numpy as np
 from keras.preprocessing import image
-test_image = image.load_img('dataset/single_prediction/test.jpg', target_size = (64, 64))
+
+test_image = image.load_img('dataset/single_prediction/test.jpg', target_size = (64, 64)) # load image and convert to apropriate format
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis = 0)
 result = classifier.predict(test_image)
-training_set.class_indices
+
 if result[0][0] == 1:
     prediction = 'man'
 else:
