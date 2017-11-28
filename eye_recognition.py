@@ -15,7 +15,7 @@ for (x, y, w, h) in eye:
     cv2.imwrite("{file_mane}.png".format(file_mane=name ), t_img)
     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-cv2.imshow('img', img)
+cv2.imshow('img', img)   # part needed only for visualisation
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
