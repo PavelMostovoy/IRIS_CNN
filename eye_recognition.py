@@ -11,7 +11,7 @@ print(eye)
 for (x, y, w, h) in eye:
     name = str(x+y)
     t_img=img.copy()
-    t_img = t_img[y:y + h, x:x + w] NOTE: its img[y: y + h, x: x + w]
+    t_img = t_img[y:y + h, x:x + w] # NOTE: its img[y: y + h, x: x + w]
     cv2.imwrite("{file_mane}.png".format(file_mane=name ), t_img)
     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
