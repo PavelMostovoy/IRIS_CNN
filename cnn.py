@@ -18,17 +18,21 @@ from keras.layers import MaxPooling2D
 from keras.layers import Flatten
 from keras.layers import Dense
 
+img_dim_x = 64
+img_dim_y = 64
+filters = 32
+
 # Initialising the CNN
 classifier = Sequential()
 
 # Step 1 - Convolution
-classifier.add(Conv2D(32, (3, 3), input_shape = (64, 64, 3), activation = 'relu'))
+classifier.add(Conv2D(filters, (3, 3), input_shape = (img_dim_x, img_dim_y, 3), activation = 'relu'))
 
 # Step 2 - Pooling
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
 # Adding a second convolutional layer
-classifier.add(Conv2D(32, (3, 3), activation = 'relu'))
+classifier.add(Conv2D(filters, (3, 3), activation = 'relu'))
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
 
@@ -56,22 +60,22 @@ train_datagen = ImageDataGenerator(rescale = 1./255,
 test_datagen = ImageDataGenerator(rescale = 1./255)
 
 training_set = train_datagen.flow_from_directory('dataset/training_set',
-                                                 target_size = (64, 64),
-                                                 batch_size = 8,
+                                                 target_size = (img_dim_x, img_dim_y),
+                                                 batch_size = 16,
                                                  class_mode = 'binary') # save_to_dir="dataset/augemented" - this could show generated files
 
 test_set = test_datagen.flow_from_directory('dataset/test_set',
-                                            target_size = (64, 64),
+                                            target_size = (img_dim_x, img_dim_y),
                                             batch_size =4,
                                             class_mode = 'binary')
 
 classifier.fit_generator(training_set,
-                         steps_per_epoch = 300,
+                         steps_per_epoch = 800,
                          epochs = 25,
                          validation_data = test_set,
                          validation_steps = 100)
 
-classifier.save("model3.h5")   # save model for future purposes
+classifier.save("model3_.h5")   # save model for future purposes
 
 import numpy as np
 from keras.preprocessing import image
