@@ -37,10 +37,12 @@ classifier.add(Flatten())
 
 # Step 4 - Full connection
 classifier.add(Dense(units = 128, activation = 'relu'))
-classifier.add(Dense(units = 1, activation = 'sigmoid'))
+classifier.add(Dense(units = 3, activation = 'softmax')) # sigmoid for binary outcome
+
 
 # Compiling the CNN
-classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+classifier.compile(optimizer = 'adam', loss = 'sparse_categorical_crossentropy', metrics = ['accuracy'])
+
 
 # Part 2 - Fitting the CNN to the images
 
@@ -69,12 +71,12 @@ classifier.fit_generator(training_set,
                          validation_data = test_set,
                          validation_steps = 100)
 
-classifier.save("model.h5")   # save model for future purposes
+classifier.save("model3.h5")   # save model for future purposes
 
 import numpy as np
 from keras.preprocessing import image
 
-test_image = image.load_img('dataset/single_prediction/test.jpg', target_size = (64, 64)) # load image and convert to apropriate format
+'''test_image = image.load_img('dataset/single_prediction/test.jpg', target_size = (64, 64)) # load image and convert to apropriate format
 test_image = image.img_to_array(test_image)
 test_image = np.expand_dims(test_image, axis = 0)
 result = classifier.predict(test_image)
@@ -85,3 +87,4 @@ else:
     prediction = 'woman'
 
 print (prediction)
+'''
