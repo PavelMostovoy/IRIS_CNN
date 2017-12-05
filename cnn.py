@@ -45,7 +45,7 @@ classifier.add(Dense(units = 3, activation = 'softmax')) # sigmoid for binary ou
 
 
 # Compiling the CNN
-classifier.compile(optimizer = 'adam', loss = 'sparse_categorical_crossentropy', metrics = ['accuracy'])
+classifier.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
 
 
 # Part 2 - Fitting the CNN to the images
@@ -62,20 +62,20 @@ test_datagen = ImageDataGenerator(rescale = 1./255)
 training_set = train_datagen.flow_from_directory('dataset/training_set',
                                                  target_size = (img_dim_x, img_dim_y),
                                                  batch_size = 16,
-                                                 class_mode = 'binary') # save_to_dir="dataset/augemented" - this could show generated files
+                                                 class_mode = 'categorical') # save_to_dir="dataset/augemented" - this could show generated files
 
 test_set = test_datagen.flow_from_directory('dataset/test_set',
                                             target_size = (img_dim_x, img_dim_y),
                                             batch_size =4,
-                                            class_mode = 'binary')
+                                            class_mode = 'categorical')# was binary can be sparse
 
 classifier.fit_generator(training_set,
-                         steps_per_epoch = 800,
+                         steps_per_epoch = 1000,
                          epochs = 25,
                          validation_data = test_set,
                          validation_steps = 100)
 
-classifier.save("model3_.h5")   # save model for future purposes
+classifier.save("model3_cathegorical.h5")   # save model for future purposes
 
 import numpy as np
 from keras.preprocessing import image

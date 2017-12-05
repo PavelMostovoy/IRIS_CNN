@@ -8,7 +8,7 @@ import numpy as np
 from keras.preprocessing import image
 import os
 
-classifier = keras.models.load_model("model3.h5")
+classifier = keras.models.load_model("model3_sparse.h5")
 img_dim_x = 64
 img_dim_y = 64
 
@@ -22,16 +22,33 @@ def i_pred (full_name):
 
 
 
-path = 'dataset/test_set/man/'
+path = 'dataset/test_set/woman/'
 
-
+total = []
 for filename in os.listdir(path):
     result = i_pred(path+filename)
+
     if result[0][2] == 1:
        prediction = 'woman'
+       total.append(prediction)
     elif result[0][0] == 1 :
        prediction = 'man'
+       total.append(prediction)
     else :
         prediction = 'alien'
+        total.append(prediction)
 
     print (filename,prediction)
+
+print ("w = ",total.count("woman"))
+
+print ("m = ",total.count("man"))
+
+#cathegorical
+w =  328
+m =  168
+
+# sparse
+
+w =  359
+m =  143
