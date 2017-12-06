@@ -8,9 +8,9 @@ import numpy as np
 from keras.preprocessing import image
 import os
 
-classifier = keras.models.load_model("model3_sparse.h5")
-img_dim_x = 64
-img_dim_y = 64
+classifier = keras.models.load_model("model_15kb.h5")
+img_dim_x = 100
+img_dim_y = 100
 
 
 def i_pred (full_name):
@@ -18,24 +18,26 @@ def i_pred (full_name):
     test_image = image.img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis = 0)
     result = classifier.predict(test_image)
+    #print (result)
     return result
 
 
 
-path = 'dataset/test_set/woman/'
+path = 'dataset/single_prediction/'
 
 total = []
+
+
+
+
 for filename in os.listdir(path):
     result = i_pred(path+filename)
 
-    if result[0][2] == 1:
+    if result[0][0] == 1:
        prediction = 'woman'
        total.append(prediction)
-    elif result[0][0] == 1 :
-       prediction = 'man'
-       total.append(prediction)
     else :
-        prediction = 'alien'
+        prediction = 'man'
         total.append(prediction)
 
     print (filename,prediction)
