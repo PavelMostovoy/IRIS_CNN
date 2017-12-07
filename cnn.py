@@ -59,23 +59,23 @@ train_datagen = ImageDataGenerator(rescale = 1./255,
 
 test_datagen = ImageDataGenerator(rescale = 1./255)
 
-training_set = train_datagen.flow_from_directory('dataset/training_set',
+training_set = train_datagen.flow_from_directory('dataset/training_face',
                                                  target_size = (img_dim_x, img_dim_y),
-                                                 batch_size = 32,
+                                                 batch_size = 16,
                                                  class_mode = 'binary') # save_to_dir="dataset/augemented" - this could show generated files
 
-test_set = test_datagen.flow_from_directory('dataset/test_set',
+test_set = test_datagen.flow_from_directory('dataset/test_face',
                                             target_size = (img_dim_x, img_dim_y),
-                                            batch_size =16,
+                                            batch_size =8,
                                             class_mode = 'binary')# was binary can be sparse
 
 classifier.fit_generator(training_set,
-                         steps_per_epoch = 500,
+                         steps_per_epoch = 3000,
                          epochs = 25,
                          validation_data = test_set,
-                         validation_steps = 100)
+                         validation_steps = 500) # steps per epoch -  Total number of steps (batches of samples)
 
-classifier.save("model_15kb.h5")   # save model for future purposes
+classifier.save("model_face.h5")   # save model for future purposes
 
 import numpy as np
 from keras.preprocessing import image

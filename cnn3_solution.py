@@ -8,7 +8,7 @@ import numpy as np
 from keras.preprocessing import image
 import os
 
-classifier = keras.models.load_model("model_15kb.h5")
+classifier = keras.models.load_model("model_face.h5")
 img_dim_x = 100
 img_dim_y = 100
 
@@ -26,7 +26,6 @@ def i_pred (full_name):
 path = 'dataset/single_prediction/'
 
 total = []
-
 
 
 
