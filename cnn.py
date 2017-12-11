@@ -20,7 +20,7 @@ from keras.layers import Dense
 
 img_dim_x = 100
 img_dim_y = 100
-filters = 48
+filters = 64
 
 # Initialising the CNN
 classifier = Sequential()
@@ -61,21 +61,21 @@ test_datagen = ImageDataGenerator(rescale = 1./255)
 
 training_set = train_datagen.flow_from_directory('dataset/training_face',
                                                  target_size = (img_dim_x, img_dim_y),
-                                                 batch_size = 16,
+                                                 batch_size = 4,
                                                  class_mode = 'binary') # save_to_dir="dataset/augemented" - this could show generated files
 
 test_set = test_datagen.flow_from_directory('dataset/test_face',
                                             target_size = (img_dim_x, img_dim_y),
-                                            batch_size =8,
+                                            batch_size =4,
                                             class_mode = 'binary')# was binary can be sparse
 
 classifier.fit_generator(training_set,
-                         steps_per_epoch = 3000,
-                         epochs = 25,
+                         steps_per_epoch = 4000,
+                         epochs = 30,
                          validation_data = test_set,
-                         validation_steps = 500) # steps per epoch -  Total number of steps (batches of samples)
+                         validation_steps = 400) # steps per epoch -  Total number of steps (batches of samples)
 
-classifier.save("model_face.h5")   # save model for future purposes
+classifier.save("model_face_2.h5")   # save model for future purposes
 
 import numpy as np
 from keras.preprocessing import image
